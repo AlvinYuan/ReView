@@ -1,0 +1,39 @@
+<html>
+<head>
+	<!-- Third Party Scripts -->
+	<script src="thirdparty/jquery-2.1.1.min.js"></script>
+	<script src="thirdparty/combined-compiled.js"></script>
+	<script src="thirdparty/numeric-1.2.6.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="screenshot.css">
+	<script src="screenshot.js"></script>
+</head>
+
+<body>
+    <table>
+    	<tr>
+    		<td>
+			    <h3>Image</h3>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			    <canvas id="screenshotCanvas"></canvas>
+			</td>
+			<td>
+				<h4>Colors</h4>
+				<div id="colorUI"></div>
+				<h4>Dependent Axis</h4>
+				<div>
+					<input id="axis-start" class="axes-input" type="textarea"></input>
+					<span>-</span>
+					<input id="axis-end" class="axes-input" type="textarea"></input>
+				</div>
+				<br>
+				<button id="generateViews">Generate Views</button>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

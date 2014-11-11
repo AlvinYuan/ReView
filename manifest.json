@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "ReView",
+  "description": "This extension lets you view a graph in new ways!",
+  "version": "1.0",
+  "content_scripts": [{
+    "matches": ["http://*/*","https://*/*"],
+    "css": ["content_script.css"],
+    "js": ["thirdparty/jquery-2.1.1.min.js", "content_script.js"]
+  }],
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/*"
+    ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Read a graph!"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

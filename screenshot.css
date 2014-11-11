@@ -1,0 +1,14 @@
+td {
+	vertical-align: top;
+}
+
+.colorUI-choice {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.axes-input {
+	display: inline-block;
+	width: 100px;
+}
