@@ -1,9 +1,12 @@
 <html>
 <head>
-	<!-- Third Party Scripts -->
+ 	<meta charset="UTF-8">
+ 	<meta content="utf-8" http-equiv="encoding">
+  	<!-- Third Party Scripts -->
 	<script src="thirdparty/jquery-2.1.1.min.js"></script>
 	<script src="thirdparty/combined-compiled.js"></script>
 	<script src="thirdparty/numeric-1.2.6.min.js"></script>
+	<script src="thirdparty/d3.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="screenshot.css">
 	<script src="screenshot.js"></script>
@@ -23,14 +26,28 @@
 			<td>
 				<h4>Colors</h4>
 				<div id="colorUI"></div>
-				<h4>Dependent Axis</h4>
+				<h4>Y Axis</h4>
 				<div>
-					<input id="axis-start" class="axes-input" type="textarea"></input>
+					<input id="axis-y-start" class="axes-input" type="textarea"></input>
 					<span>-</span>
-					<input id="axis-end" class="axes-input" type="textarea"></input>
+					<input id="axis-y-end" class="axes-input" type="textarea"></input>
 				</div>
 				<br>
 				<button id="generateViews">Generate Views</button>
+			</td>
+			<td>
+				<div>
+					<h4>Extracted Data</h4>
+					<div id="extractedData"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td>
+				<h4>Y Axis from 0</h4>
+				<svg id="ReView1"></svg>
 			</td>
 		</tr>
 	</table>
