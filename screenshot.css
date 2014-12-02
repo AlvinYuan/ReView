@@ -1,11 +1,50 @@
+h4 {
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+select, input[type=textarea] {
+	width: 100px;
+	padding: 1px;
+	border-size: 1px;
+}
+
+.overlapping-canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+#overlayCanvas:active {
+	cursor: default;
+}
+
+#pointsDiv .removable {
+	cursor: pointer;
+}
+
 td {
 	vertical-align: top;
+}
+
+#ReView-table {
+    border-collapse: collapse;
+}
+
+.bordered {
+    border: 1px #939393 solid;
+}
+
+select {
+	display: block;
 }
 
 .colorUI-choice {
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+	border: 1px solid black;
+	margin-right: 10px;
 }
 
 .axes-input {
@@ -28,6 +67,5 @@ td {
 
 .line {
   fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
 }

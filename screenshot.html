@@ -15,39 +15,101 @@
 <body>
     <table>
     	<tr>
-    		<td>
-			    <h3>Image</h3>
-			</td>
-		</tr>
+    		<th>Steps</th>
+    		<th>Image</th>
+    	</tr>
 		<tr>
 			<td>
-			    <canvas id="screenshotCanvas"></canvas>
-			</td>
-			<td>
-				<h4>Colors</h4>
-				<div id="colorUI"></div>
-				<h4>Y Axis</h4>
+				<span>Please follow these steps to help with the data extraction.</span>
+				<h4>1. Indicate Grid Bounds</h4>
+				<span> Click and drag a box over the image to indicate the bounds of the data grid.</span>
+				<h4>2. Identify Line Colors</h4>
+				<span> Select the colors corresponding to data lines.</span>
+				<table>
+					<tr id="colorUI"></tr>
+				</table>
+				<span> Inspect the graphed points. If necessary, click on extraneous points to remove them. </span>
+				<h4>3. Describe the Y Axis</h4>
 				<div>
-					<input id="axis-y-start" class="axes-input" type="textarea"></input>
-					<span>-</span>
-					<input id="axis-y-end" class="axes-input" type="textarea"></input>
+					<table>
+						<tr>
+							<td>Scale: </td>
+							<td>
+								<select id="axis-y-type">
+									<option selected val="Linear">Linear</option>
+									<option val="Logarithmic">Logarithmic</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Range: </td>
+							<td>
+								<input id="axis-y-start" class="axes-input" type="textarea"></input>
+								<span>-</span>
+								<input id="axis-y-end" class="axes-input" type="textarea"></input>
+							</td>
+						</tr>
+						<tr id="axis-base-row" style="display: none">
+							<td>Base: </td>
+							<td>
+								<input id="axis-base" class="axes-input" type="textarea"></input>
+							</td>
+						</tr>
+					</table>
 				</div>
 				<br>
-				<button id="generateViews">Generate Views</button>
+				<button id="generateViews">Extract Data and Generate Views</button>
 			</td>
 			<td>
-				<div>
-					<h4>Extracted Data</h4>
-					<div id="extractedData"></div>
+				<!--http://stackoverflow.com/questions/3008635/html5-canvas-element-multiple-layers-->
+				<div id="canvasContainer" style="position: relative">
+				    <canvas id="screenshotCanvas" class="overlapping-canvas" style="z-index: 0"></canvas>
+				    <canvas id="overlayCanvas" class="overlapping-canvas" style="z-index: 2"></canvas>
+				    <div id="pointsDiv" class="overlapping-canvas" style="z-index: 1"></canvas>
 				</div>
 			</td>
 		</tr>
 	</table>
-	<table>
+	<table id="ReView-table" style="display: none">
 		<tr>
 			<td>
-				<h4>Y Axis from 0</h4>
-				<svg id="ReView1"></svg>
+				<h2>Time to ReView!</h2>
+				<div> You may click on any of the charts to add a shared point to all of them.</div>
+				<button id="clearShared">Clear Shared Points</button>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<th colspan="2">Scale</th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<th class="bordered">Linear</th>
+			<th class="bordered">Logarithmic</th>
+		</tr>
+		<tr>
+			<th rowspan="2">Range</th>
+			<th class="bordered">Big Picture</th>
+			<td class="bordered">
+				<div class="ReView Linear big">
+				</div>
+			</td>
+			<td class="bordered">
+				<div class="ReView Logarithmic big">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="bordered">Zoomed-In</th>
+			<td class="bordered">
+				<div class="ReView Linear zoom">
+				</div>
+			</td>
+			<td class="bordered">
+				<div class="ReView Logarithmic zoom">
+				</div>
 			</td>
 		</tr>
 	</table>

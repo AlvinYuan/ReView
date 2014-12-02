@@ -45,6 +45,7 @@ function addDragDropListeners() {
                                                  height: dim.height + "px"})
                 $('#ReViewClipOverlayRight').css({width: "calc(100% - " + right + "px)",
                                                   height: dim.height + "px"})
+                return false;
             })
             $('body').on('mouseup.ReViewClipOverlay', '#ReViewClipOverlay', function(e) {
                 corner2 = { x: e.clientX, y: e.clientY }
@@ -58,7 +59,9 @@ function addDragDropListeners() {
                 $('body').off('mousemove.ReViewClipOverlay')
                 $('body').off('mouseup.ReViewClipOverlay')
                 mode = ModeEnum.NORMAL
+                return false;
             })
+            return false;
         }
     })
 }
