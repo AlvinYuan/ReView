@@ -22,8 +22,8 @@ var originalImageData;
 var SVG_MAX_WIDTH = 500, SVG_MAX_HEIGHT = 500;
 var imageWidth, imageHeight;
 var topColors;
-var colorDistanceGroupTolerance = 20;
-var colorDistancePointTolerance = 5;
+var colorDistanceGroupTolerance = 12;
+var colorDistancePointTolerance = 6;
 
 var isDragging = false;
 var startCorner, stopCorner;
@@ -195,7 +195,7 @@ $(document).ready(function() {
         for (var i = 0; i < main_svgs.length; i++) {
           var divContainer = $(main_svgs[i]).parent()
           var svg = d3.select(main_svgs[i]).select("g")
-          var x, y, xmin, xmax;
+          var x, y, xmin, xmax, ymin, ymax;
           if (divContainer.hasClass("ReView")) {
             var scaleYString = "ReViewScaleY"
             scaleYString += divContainer.hasClass("Linear") ? "Linear" : "Logarithmic";
@@ -204,6 +204,8 @@ $(document).ready(function() {
             y = scales[scaleYString](dataY)
             xmin = scales["ReViewScaleX"].range()[0]
             xmax = scales["ReViewScaleX"].range()[1]
+            ymin = scales[scaleYString].range()[0]
+            ymin = scales[scaleYString].range()[1]
           } else {
             x = scales["imageToDataScaleX-invert"](dataX)
             y = scales["imageToDataScaleY-invert"](dataY)
@@ -215,16 +217,8 @@ $(document).ready(function() {
             } else {
               domainY = scales["imageToDataScaleY-invert"].range()
             }
-            svg.append("line")
-              .attr("class", "shared")
-              .attr("x1", x)
-              .attr("x2", x)
-              .attr("y1", domainY[0])
-              .attr("y2", domainY[1])
-              .attr("fill", "none")
-              .attr("shape-rendering", "crispEdges")
-              .attr("stroke", "black")
-              .attr("stroke-width", "1px")
+            ymin = domainY[0]
+            ymax = domainY[1]
           }
 
           svg.append("circle")
@@ -234,13 +228,23 @@ $(document).ready(function() {
             .attr("r", 4)
             .attr("cx", x)
             .attr("cy", y)
-            .attr("stroke-width", "2px")
+            .attr("stroke-width", "1px")
           svg.append("line")
             .attr("class", "shared")
             .attr("x1", xmin)
             .attr("x2", xmax)
             .attr("y1", y)
             .attr("y2", y)
+            .attr("fill", "none")
+            .attr("shape-rendering", "crispEdges")
+            .attr("stroke", "black")
+            .attr("stroke-width", "1px")
+          svg.append("line")
+            .attr("class", "shared")
+            .attr("x1", x)
+            .attr("x2", x)
+            .attr("y1", ymin)
+            .attr("y2", ymax)
             .attr("fill", "none")
             .attr("shape-rendering", "crispEdges")
             .attr("stroke", "black")
@@ -413,7 +417,7 @@ function generateViews(data) {
         for (var j = 0; j < possible_spacings.length; j++) {
           spacing = possible_spacings[j]
           base = Math.pow(Math.E, spacing)
-          if (log_diff / spacing >= 10) {
+          if (log_diff / spacing >= 6) {
             break;
           }
         }
@@ -567,6 +571,14 @@ function extractRawDataForColor(color) {
 
 function loadColorUI() {
   topColors = wpd.colorAnalyzer.getTopColorsWithTolerance(originalImageData, colorDistanceGroupTolerance);
+  // Filter Poor Colors
+  for (var i = 0; i < topColors.length; i++) {
+    var topColor = topColors[i]
+    if (topColor.pixels < 15) {
+      topColors.remove(i)
+      i--;
+    }
+  }
   var colorUI = $("#colorUI")
   var colorUIhtml = ""
   var numColumns = topColors.length >= 11 ? 3 : 2 // values somewhat arbitrary
